@@ -1,0 +1,3 @@
+A quick and dirty demo to pass nginx's QUERY_STRING to fastcgi and select a record from mysql server using the split string as parameters.
+
+(parameters are passed with '+' as a delimiter after each param e.g. "localhost/?param1+param2+")
