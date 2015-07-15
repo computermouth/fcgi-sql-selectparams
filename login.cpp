@@ -48,9 +48,8 @@ int main(void)
 		
 		string userN = strtok(input, "+");
 		string passH = strtok(NULL, "+");
-		cout << endl << passH;
 		
-		cout << "PARAMS: \n\tUSER: " << userN << 
+		cout << "\nPARAMS: \n\tUSER: " << userN << 
 				"\n\tPASS: " << passH << endl;	
 
 		delete input;
