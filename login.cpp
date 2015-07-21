@@ -4,6 +4,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <sstream>
 
 #include "mysql_connection.h"
 
@@ -62,7 +63,6 @@ int main(void)
 			
 			cout << "\nConnect to localhost:" << endl;
 			cout << "\tCheck for: \n\t\t queried username '" << userN << "'";
-			//cout << "\n\t\t with queried password '" << passH << "'";
 			
 			/* Create a connection */
 			driver = get_driver_instance();
@@ -71,13 +71,24 @@ int main(void)
 
 			stmt = con->createStatement();
 			stmt->execute("USE accounts");
-			res = stmt->executeQuery("SELECT passhash FROM main WHERE id = 'uname'");
+			
+			stringstream stmtvar;
+			stmtvar << "SELECT passhash FROM main WHERE id = '" << userN << "'";
+			
+			res = stmt->executeQuery(stmtvar.str());
+			
+			bool hasResult = false;
+			
 			while (res->next()){
 				if (res->getString(1) == passH)
 					cout << "\n\tVerified passH!";
 				else
 					cout << "\n\tIncorrect passH";
+				hasResult = true;
 			}
+			
+			if(!hasResult)
+				cout << "\n\tNo such account";
 			
 			delete res;
 			delete stmt;
